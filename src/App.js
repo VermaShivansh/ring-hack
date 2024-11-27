@@ -13,6 +13,9 @@ import {
   Chip,
   MenuItem,
   TextField,
+  Divider,
+  Paper,
+  Snackbar,
 } from "@mui/material";
 import axios from "axios";
 import { ReactComponent as RingoverLogo } from "./ringover_logo.svg";
@@ -59,7 +62,7 @@ const App = () => {
   const [type, setType] = useState("");
   const [response, setResponse] = useState(null);
   const [error, setError] = useState("");
-  const [notifMsg, setNotifMsg] = useState("");
+  const [notifMsg, setNotifMsg] = useState("Default message");
   const theme = useTheme();
   const [platformTypes, setPlatformTypes] = useState([]);
   const [notificationTypes, setNotificationTypes] = useState([]);
@@ -111,10 +114,10 @@ const App = () => {
     });
     setResponse(null);
     setError("");
-    setNotifMsg("");
-    setType("");
-    setPlatformTypes([]);
-    setNotificationTypes([]);
+    // setNotifMsg("Default message");
+    // setType("");
+    // setPlatformTypes([]);
+    // setNotificationTypes([]);
 
     const reqBody = {
       event: type,
@@ -156,7 +159,7 @@ const App = () => {
   }, []);
 
   return (
-    <Box
+    <Paper
       style={{ backgroundColor: "#f9fbff" }}
       sx={{
         display: "flex",
@@ -167,6 +170,7 @@ const App = () => {
         backgroundColor: "#f5f5f5",
         padding: 2,
       }}
+      elevation={0}
     >
       <RingoverLogo />
       <br />
@@ -255,7 +259,6 @@ const App = () => {
           value={notifMsg}
           onChange={handleChange}
           required
-          placeholder="Enter the event message"
           label="Event Message"
           variant="outlined"
         />
@@ -320,10 +323,6 @@ const App = () => {
           fullWidth
           variant="contained"
           color="error"
-          // sx={{
-          //   borderRadius: "12px",
-          //   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-          // }}
           style={{ backgroundColor: "#E86060" }}
           disabled={loading?.tag ?? false}
           onClick={() => setType("tag")}
@@ -335,8 +334,29 @@ const App = () => {
             "Tag Event"
           )}
         </Button>
+        <Divider style={{ borderBottomWidth: "3px" }} />
+        <Button
+          fullWidth
+          variant="contained"
+          color="warning"
+          style={{
+            backgroundColor: "#d1cac7",
+            color: "#000",
+            fontWeight: "bold",
+            borderRadius: "32px",
+          }}
+          disabled={loading?.tag ?? false}
+          onClick={() => {
+            setNotifMsg("Default message");
+            setType("");
+            setPlatformTypes([]);
+            setNotificationTypes([]);
+          }}
+        >
+          Clear
+        </Button>
       </Box>
-      {response && (
+      {/* {response && (
         <Alert severity="success" sx={{ mt: 2, width: 400 }}>
           {response}
         </Alert>
@@ -345,8 +365,28 @@ const App = () => {
         <Alert severity="error" sx={{ mt: 2, width: 400 }}>
           {error}
         </Alert>
+      )} */}
+
+      {(response || error ? true : false) && (
+        <Snackbar
+          open={true}
+          autoHideDuration={6000}
+          // onClose={handleClose}
+          // anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          {response && (
+            <Alert severity="success" variant="filled" sx={{ width: "100%" }}>
+              {response}
+            </Alert>
+          )}
+          {error && (
+            <Alert severity="error" variant="filled" sx={{ width: "100%" }}>
+              {error}
+            </Alert>
+          )}
+        </Snackbar>
       )}
-    </Box>
+    </Paper>
   );
 };
 
