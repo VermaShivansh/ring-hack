@@ -12,17 +12,14 @@ import {
   OutlinedInput,
   Chip,
   MenuItem,
+  TextField,
 } from "@mui/material";
 import axios from "axios";
 import { ReactComponent as RingoverLogo } from "./ringover_logo.svg";
 import { app as firebaseApp, requestForToken } from "./firebase";
 import { useTheme } from "@mui/material/styles";
 
-import {
-  PLATFORMS,
-  NOTIFICATION_TYPES_LABEL,
-  PLATFORMS_LABEL,
-} from "./utils/enums";
+import { NOTIFICATION_TYPES_LABEL, PLATFORMS_LABEL } from "./utils/enums";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -191,7 +188,7 @@ const App = () => {
           boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <FormControl sx={{ m: 1 }}>
+        <FormControl>
           <InputLabel id="multiple-chip-label">Platform</InputLabel>
           <Select
             labelId="multiple-chip-label"
@@ -221,7 +218,7 @@ const App = () => {
             ))}
           </Select>
         </FormControl>
-        <FormControl sx={{ m: 1 }}>
+        <FormControl>
           <InputLabel id="notification-label">Notification Types</InputLabel>
           <Select
             labelId="notification-label"
@@ -253,25 +250,24 @@ const App = () => {
             ))}
           </Select>
         </FormControl>
-        <FormControl fullWidth>
-          <InputLabel htmlFor="event_msg">Event Message</InputLabel>
-          <Input
-            id="event_msg"
-            value={notifMsg}
-            onChange={handleChange}
-            required
-            placeholder="Enter the event message"
-          />
-        </FormControl>
+        <TextField
+          id="event_msg"
+          value={notifMsg}
+          onChange={handleChange}
+          required
+          placeholder="Enter the event message"
+          label="Event Message"
+          variant="outlined"
+        />
         <Button
           fullWidth
           variant="contained"
           color="primary"
           style={{ backgroundColor: "#4db6ac" }}
-          sx={{
-            borderRadius: "12px",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-          }}
+          // sx={{
+          //   borderRadius: "12px",
+          //   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+          // }}
           onClick={() => setType("sms")}
           disabled={loading?.sms ?? false}
           type="submit"
@@ -287,10 +283,10 @@ const App = () => {
           variant="contained"
           color="secondary"
           style={{ backgroundColor: "#1074C6" }}
-          sx={{
-            borderRadius: "12px",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-          }}
+          // sx={{
+          //   borderRadius: "12px",
+          //   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+          // }}
           onClick={() => setType("email")}
           type="submit"
           disabled={loading?.email ?? false}
@@ -305,10 +301,10 @@ const App = () => {
           fullWidth
           variant="contained"
           color="success"
-          sx={{
-            borderRadius: "12px",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-          }}
+          // sx={{
+          //   borderRadius: "12px",
+          //   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+          // }}
           style={{ backgroundColor: "#926AF6" }}
           onClick={() => setType("call")}
           type="submit"
@@ -324,10 +320,10 @@ const App = () => {
           fullWidth
           variant="contained"
           color="error"
-          sx={{
-            borderRadius: "12px",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-          }}
+          // sx={{
+          //   borderRadius: "12px",
+          //   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+          // }}
           style={{ backgroundColor: "#E86060" }}
           disabled={loading?.tag ?? false}
           onClick={() => setType("tag")}
