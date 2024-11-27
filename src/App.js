@@ -8,10 +8,40 @@ import {
   FormControl,
   InputLabel,
   Input,
+  FormControlLabel,
+  Checkbox,
+  Select,
+  OutlinedInput,
+  Chip,
+  MenuItem,
 } from "@mui/material";
 import axios from "axios";
 import { ReactComponent as RingoverLogo } from "./ringover_logo.svg";
 import { app as firebaseApp, requestForToken } from "./firebase";
+import { useTheme } from "@mui/material/styles";
+
+import { PLATFORMS, EVENT_TYPES } from "./utils/enums";
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const platforms = Object.values(PLATFORMS);
+
+function getStyles(platform, platformTypes, theme) {
+  return {
+    fontWeight: platformTypes.includes(platform)
+      ? theme.typography.fontWeightMedium
+      : theme.typography.fontWeightRegular,
+  };
+}
 
 const App = () => {
   const [loading, setLoading] = useState({
@@ -24,6 +54,15 @@ const App = () => {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState("");
   const [notifMsg, setNotifMsg] = useState("");
+  const theme = useTheme();
+  const [platformTypes, setPlatformTypes] = useState([]);
+
+  const handleChangePlatform = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setPlatformTypes(typeof value === "string" ? value.split(",") : value);
+  };
 
   // Handler for input changes
   const handleChange = (event) => {
@@ -111,6 +150,35 @@ const App = () => {
           boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
         }}
       >
+        <FormControl sx={{ m: 1 }}>
+          <InputLabel id="multiple-chip-label">Platform</InputLabel>
+          <Select
+            labelId="multiple-chip-label"
+            id="multiple-chip"
+            multiple
+            value={platformTypes}
+            onChange={handleChangePlatform}
+            input={<OutlinedInput id="select-multiple-chip" label="Platform" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {platforms.map((platform) => (
+              <MenuItem
+                key={platform}
+                value={platform}
+                style={getStyles(platform, platformTypes, theme)}
+              >
+                {platform}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <FormControl fullWidth>
           <InputLabel htmlFor="event_msg">Event Message</InputLabel>
           <Input
