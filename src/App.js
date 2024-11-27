@@ -61,7 +61,11 @@ const App = () => {
     const {
       target: { value },
     } = event;
-    setPlatformTypes(typeof value === "string" ? value.split(",") : value);
+    console.log("value-->", value);
+    if (value[0] === "all" || value[value?.length - 1] === "all") {
+      setPlatformTypes(["all"]);
+    } else
+      setPlatformTypes(typeof value === "string" ? value.split(",") : value);
   };
 
   // Handler for input changes

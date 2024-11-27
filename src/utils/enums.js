@@ -12,3 +12,9 @@ export const EVENT_TYPES = {
   TAG: "tag",
   EMAIL: "email",
 };
+
+export const NOTIFICATION_TYPES = {
+  BROWSER: "browser",
+  IN_APP: "in_app",
+  PUSH: "push",
+};
