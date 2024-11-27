@@ -153,10 +153,10 @@ const App = () => {
     }
   }, []);
 
-  useEffect(() => {
-    // window.RingoverSDK.connect("https://bb8c-103-62-93-142.ngrok-free.app");
-    requestForToken();
-  }, []);
+  // useEffect(() => {
+  //   // window.RingoverSDK.connect("https://bb8c-103-62-93-142.ngrok-free.app");
+  //   // requestForToken();
+  // }, []);
 
   return (
     <Paper
