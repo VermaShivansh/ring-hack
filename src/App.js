@@ -20,7 +20,12 @@ import { ReactComponent as RingoverLogo } from "./ringover_logo.svg";
 import { app as firebaseApp, requestForToken } from "./firebase";
 import { useTheme } from "@mui/material/styles";
 
-import { PLATFORMS, EVENT_TYPES, NOTIFICATION_TYPES } from "./utils/enums";
+import {
+  PLATFORMS,
+  EVENT_TYPES,
+  NOTIFICATION_TYPES,
+  NOTIFICATION_TYPES_LABEL,
+} from "./utils/enums";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -34,7 +39,6 @@ const MenuProps = {
 };
 
 const platforms = Object.values(PLATFORMS);
-const notificationArray = Object.values(NOTIFICATION_TYPES);
 
 function getStyles(platform, platformTypes, theme) {
   return {
@@ -219,13 +223,13 @@ const App = () => {
             )}
             MenuProps={MenuProps}
           >
-            {notificationArray.map((notificationType) => (
+            {Object.entries(NOTIFICATION_TYPES_LABEL).map(([key, label]) => (
               <MenuItem
-                key={notificationType}
-                value={notificationType}
-                style={getStyles(notificationType, notificationTypes, theme)}
+                key={key}
+                value={key}
+                style={getStyles(key, notificationTypes, theme)}
               >
-                {notificationType}
+                {label}
               </MenuItem>
             ))}
           </Select>

@@ -16,5 +16,19 @@ export const EVENT_TYPES = {
 export const NOTIFICATION_TYPES = {
   BROWSER: "browser",
   IN_APP: "in_app",
-  PUSH: "push",
+  PUSH_ANDROID: "push_android",
+  PUSH_IOS: "push_ios",
+  DESKTOP_MAC: "desktop_mac",
+  DESKTOP_WIN: "desktop_win",
+  ALL: "all",
+};
+
+export const NOTIFICATION_TYPES_LABEL = {
+  browser: "Browser",
+  in_app: "In-App",
+  push_android: "Android Push",
+  push_ios: "iOS Push",
+  desktop_mac: "macOS Desktop",
+  desktop_win: "Windows Desktop",
+  all: "All",
 };
