@@ -374,16 +374,13 @@ const App = () => {
           // onClose={handleClose}
           // anchorOrigin={{ vertical: "top", horizontal: "right" }}
         >
-          {response && (
-            <Alert severity="success" variant="filled" sx={{ width: "100%" }}>
-              {response}
-            </Alert>
-          )}
-          {error && (
-            <Alert severity="error" variant="filled" sx={{ width: "100%" }}>
-              {error}
-            </Alert>
-          )}
+          <Alert
+            severity={response ? "success" : "error"}
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            {response || response}
+          </Alert>
         </Snackbar>
       )}
     </Paper>
