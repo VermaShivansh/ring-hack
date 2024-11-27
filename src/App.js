@@ -172,11 +172,19 @@ const App = () => {
       }}
       elevation={0}
     >
-      <RingoverLogo />
-      <br />
-      <Typography variant="h4" gutterBottom>
-        Ringover Client
-      </Typography>
+      <Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingBottom: 20,
+        }}
+      >
+        <RingoverLogo />
+        <Typography variant="h4" sx={{ marginLeft: 1 }}>
+          Ringover Client
+        </Typography>
+      </Box>
       <Box
         component="form"
         onSubmit={handleSubmit}
@@ -267,10 +275,6 @@ const App = () => {
           variant="contained"
           color="primary"
           style={{ backgroundColor: "#4db6ac" }}
-          // sx={{
-          //   borderRadius: "12px",
-          //   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-          // }}
           onClick={() => setType("sms")}
           disabled={loading?.sms ?? false}
           type="submit"
@@ -286,10 +290,6 @@ const App = () => {
           variant="contained"
           color="secondary"
           style={{ backgroundColor: "#1074C6" }}
-          // sx={{
-          //   borderRadius: "12px",
-          //   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-          // }}
           onClick={() => setType("email")}
           type="submit"
           disabled={loading?.email ?? false}
@@ -304,10 +304,6 @@ const App = () => {
           fullWidth
           variant="contained"
           color="success"
-          // sx={{
-          //   borderRadius: "12px",
-          //   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-          // }}
           style={{ backgroundColor: "#926AF6" }}
           onClick={() => setType("call")}
           type="submit"
@@ -356,16 +352,6 @@ const App = () => {
           Clear
         </Button>
       </Box>
-      {/* {response && (
-        <Alert severity="success" sx={{ mt: 2, width: 400 }}>
-          {response}
-        </Alert>
-      )}
-      {error && (
-        <Alert severity="error" sx={{ mt: 2, width: 400 }}>
-          {error}
-        </Alert>
-      )} */}
 
       {(response || error ? true : false) && (
         <Snackbar
