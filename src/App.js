@@ -195,7 +195,7 @@ const App = () => {
           boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <FormControl>
+        <FormControl required>
           <InputLabel id="multiple-chip-label">Platform</InputLabel>
           <Select
             labelId="multiple-chip-label"
@@ -225,7 +225,7 @@ const App = () => {
             ))}
           </Select>
         </FormControl>
-        <FormControl>
+        <FormControl required>
           <InputLabel id="notification-label">Notification Types</InputLabel>
           <Select
             labelId="notification-label"
