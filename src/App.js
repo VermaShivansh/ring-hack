@@ -20,7 +20,7 @@ import { ReactComponent as RingoverLogo } from "./ringover_logo.svg";
 import { app as firebaseApp, requestForToken } from "./firebase";
 import { useTheme } from "@mui/material/styles";
 
-import { PLATFORMS, EVENT_TYPES } from "./utils/enums";
+import { PLATFORMS, EVENT_TYPES, NOTIFICATION_TYPES } from "./utils/enums";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -34,6 +34,7 @@ const MenuProps = {
 };
 
 const platforms = Object.values(PLATFORMS);
+const notificationArray = Object.values(NOTIFICATION_TYPES);
 
 function getStyles(platform, platformTypes, theme) {
   return {
@@ -56,16 +57,25 @@ const App = () => {
   const [notifMsg, setNotifMsg] = useState("");
   const theme = useTheme();
   const [platformTypes, setPlatformTypes] = useState([]);
+  const [notificationTypes, setNotificationTypes] = useState([]);
 
   const handleChangePlatform = (event) => {
     const {
       target: { value },
     } = event;
-    console.log("value-->", value);
-    if (value[0] === "all" || value[value?.length - 1] === "all") {
+
+    if (value?.value[0] === "all" || value[value?.length - 1] === "all") {
       setPlatformTypes(["all"]);
     } else
       setPlatformTypes(typeof value === "string" ? value.split(",") : value);
+  };
+
+  const handleChangeNotificationTypes = (event) => {
+    const {
+      target: { value },
+    } = event;
+
+    setNotificationTypes(typeof value === "string" ? value.split(",") : value);
   };
 
   // Handler for input changes
@@ -86,6 +96,8 @@ const App = () => {
     setError("");
     setNotifMsg("");
     setType("");
+    setPlatformTypes([]);
+    setNotificationTypes([]);
 
     try {
       const res = await axios.post(
@@ -180,6 +192,37 @@ const App = () => {
                 style={getStyles(platform, platformTypes, theme)}
               >
                 {platform}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1 }}>
+          <InputLabel id="notification-label">Notification Types</InputLabel>
+          <Select
+            labelId="notification-label"
+            id="notification"
+            multiple
+            value={notificationTypes}
+            onChange={handleChangeNotificationTypes}
+            input={
+              <OutlinedInput id="notification" label="Notification Types" />
+            }
+            renderValue={(selected) => (
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {notificationArray.map((notificationType) => (
+              <MenuItem
+                key={notificationType}
+                value={notificationType}
+                style={getStyles(notificationType, notificationTypes, theme)}
+              >
+                {notificationType}
               </MenuItem>
             ))}
           </Select>
