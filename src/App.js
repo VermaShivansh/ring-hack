@@ -89,10 +89,11 @@ const App = () => {
 
     try {
       const res = await axios.post(
-        "https://0b2f-103-234-156-55.ngrok-free.app/notification",
+        "https://bb8c-103-62-93-142.ngrok-free.app/notification",
         {
           event: type,
           message: notifMsg,
+          platforms: platformTypes,
         }
       );
       setResponse(res.data.message || "Success!");
@@ -118,7 +119,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // window.RingoverSDK.connect("https://0b2f-103-234-156-55.ngrok-free.app");
+    // window.RingoverSDK.connect("https://bb8c-103-62-93-142.ngrok-free.app");
     requestForToken();
   }, []);
 

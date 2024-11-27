@@ -33,7 +33,7 @@ const requestForToken = async () => {
       // Send the token to your server to save and use later
 
       const res = await axios.post(
-        "https://0b2f-103-234-156-55.ngrok-free.app/get-token",
+        "https://bb8c-103-62-93-142.ngrok-free.app/get-token",
         { token }
       );
       console.log(res.data);
