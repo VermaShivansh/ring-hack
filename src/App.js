@@ -224,7 +224,7 @@ const App = () => {
             renderValue={(selected) => (
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                 {selected.map((value) => (
-                  <Chip key={value} label={value} />
+                  <Chip key={value} label={NOTIFICATION_TYPES_LABEL[value]} />
                 ))}
               </Box>
             )}
