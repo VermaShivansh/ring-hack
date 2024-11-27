@@ -64,7 +64,7 @@ const App = () => {
       target: { value },
     } = event;
 
-    if (value?.value[0] === "all" || value[value?.length - 1] === "all") {
+    if (value[0] === "all" || value[value?.length - 1] === "all") {
       setPlatformTypes(["all"]);
     } else
       setPlatformTypes(typeof value === "string" ? value.split(",") : value);
@@ -99,14 +99,17 @@ const App = () => {
     setPlatformTypes([]);
     setNotificationTypes([]);
 
+    const reqBody = {
+      event: type,
+      message: notifMsg,
+      platforms: platformTypes,
+      notification_types: notificationTypes,
+    };
+    console.log("reqBody-->", reqBody);
     try {
       const res = await axios.post(
         "https://bb8c-103-62-93-142.ngrok-free.app/notification",
-        {
-          event: type,
-          message: notifMsg,
-          platforms: platformTypes,
-        }
+        reqBody
       );
       setResponse(res.data.message || "Success!");
     } catch (err) {
