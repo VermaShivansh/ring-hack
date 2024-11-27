@@ -8,8 +8,6 @@ import {
   FormControl,
   InputLabel,
   Input,
-  FormControlLabel,
-  Checkbox,
   Select,
   OutlinedInput,
   Chip,
@@ -35,7 +33,7 @@ const MenuProps = {
 
 const platforms = Object.values(PLATFORMS);
 // Disabled fields permanently
-const permanentlyDisabledFields = ["desktop_mac", "desktop_win"];
+const permanentlyDisabledFields = ["desktop_mac", "desktop_win", "push_ios"];
 
 function getStyles(platform, platformTypes, theme) {
   return {
