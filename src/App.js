@@ -7,7 +7,6 @@ import {
   Alert,
   FormControl,
   InputLabel,
-  Input,
   Select,
   OutlinedInput,
   Chip,
@@ -114,10 +113,6 @@ const App = () => {
     });
     setResponse(null);
     setError("");
-    // setNotifMsg("Default message");
-    // setType("");
-    // setPlatformTypes([]);
-    // setNotificationTypes([]);
 
     const reqBody = {
       event: type,
@@ -125,7 +120,7 @@ const App = () => {
       platforms: platformTypes,
       notification_types: notificationTypes,
     };
-    console.log("reqBody-->", reqBody);
+
     try {
       const res = await axios.post(
         "https://bb8c-103-62-93-142.ngrok-free.app/notification",
@@ -353,22 +348,23 @@ const App = () => {
         </Button>
       </Box>
 
-      {(response || error ? true : false) && (
-        <Snackbar
-          open={true}
-          autoHideDuration={6000}
-          // onClose={handleClose}
-          // anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      <Snackbar
+        open={!!error || !!response}
+        autoHideDuration={3000}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        onClose={() => {
+          setError(null);
+          setResponse(null);
+        }}
+      >
+        <Alert
+          severity={error ? "error" : "success"}
+          variant="filled"
+          sx={{ width: "100%" }}
         >
-          <Alert
-            severity={response ? "success" : "error"}
-            variant="filled"
-            sx={{ width: "100%" }}
-          >
-            {response || response}
-          </Alert>
-        </Snackbar>
-      )}
+          {error || response}
+        </Alert>
+      </Snackbar>
     </Paper>
   );
 };

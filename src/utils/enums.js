@@ -12,7 +12,7 @@ export const PLATFORMS = {
 export const PLATFORMS_LABEL = {
   cadence: "Cadence",
   transcription: "Transcription",
-  aichat: "AI Chat Assistant",
+  aichat: "AI Chat",
   all: "All",
   empower: "Empower (Coming Soon)",
   web_app: "Ringover Web Application (Coming Soon)",
