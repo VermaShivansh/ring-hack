@@ -160,6 +160,7 @@ const App = () => {
 
   return (
     <Box
+      style={{ backgroundColor: "#f9fbff" }}
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -266,6 +267,7 @@ const App = () => {
           fullWidth
           variant="contained"
           color="primary"
+          style={{ backgroundColor: "#4db6ac" }}
           sx={{
             borderRadius: "12px",
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
@@ -284,6 +286,7 @@ const App = () => {
           fullWidth
           variant="contained"
           color="secondary"
+          style={{ backgroundColor: "#1074C6" }}
           sx={{
             borderRadius: "12px",
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
@@ -306,6 +309,7 @@ const App = () => {
             borderRadius: "12px",
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
           }}
+          style={{ backgroundColor: "#926AF6" }}
           onClick={() => setType("call")}
           type="submit"
           disabled={loading?.call ?? false}
@@ -324,6 +328,7 @@ const App = () => {
             borderRadius: "12px",
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
           }}
+          style={{ backgroundColor: "#E86060" }}
           disabled={loading?.tag ?? false}
           onClick={() => setType("tag")}
           type="submit"
