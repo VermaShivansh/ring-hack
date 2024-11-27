@@ -28,7 +28,7 @@ export const NOTIFICATION_TYPES_LABEL = {
   in_app: "In-App",
   push_android: "Android Push",
   push_ios: "iOS Push",
+  all: "All",
   desktop_mac: "macOS Desktop",
   desktop_win: "Windows Desktop",
-  all: "All",
 };

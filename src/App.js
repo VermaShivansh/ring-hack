@@ -20,12 +20,7 @@ import { ReactComponent as RingoverLogo } from "./ringover_logo.svg";
 import { app as firebaseApp, requestForToken } from "./firebase";
 import { useTheme } from "@mui/material/styles";
 
-import {
-  PLATFORMS,
-  EVENT_TYPES,
-  NOTIFICATION_TYPES,
-  NOTIFICATION_TYPES_LABEL,
-} from "./utils/enums";
+import { PLATFORMS, NOTIFICATION_TYPES_LABEL } from "./utils/enums";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -39,6 +34,8 @@ const MenuProps = {
 };
 
 const platforms = Object.values(PLATFORMS);
+// Disabled fields permanently
+const permanentlyDisabledFields = ["desktop_mac", "desktop_win"];
 
 function getStyles(platform, platformTypes, theme) {
   return {
@@ -64,22 +61,33 @@ const App = () => {
   const [notificationTypes, setNotificationTypes] = useState([]);
 
   const handleChangePlatform = (event) => {
-    const {
-      target: { value },
-    } = event;
-
-    if (value[0] === "all" || value[value?.length - 1] === "all") {
+    const value = event.target.value;
+    if (value.includes("all")) {
       setPlatformTypes(["all"]);
-    } else
-      setPlatformTypes(typeof value === "string" ? value.split(",") : value);
+    } else {
+      setPlatformTypes(value.filter((v) => v !== "all"));
+    }
   };
 
   const handleChangeNotificationTypes = (event) => {
-    const {
-      target: { value },
-    } = event;
+    const value = event.target.value;
+    if (value.includes("all")) {
+      setNotificationTypes(["all"]);
+    } else {
+      setNotificationTypes(value.filter((v) => v !== "all"));
+    }
+  };
 
-    setNotificationTypes(typeof value === "string" ? value.split(",") : value);
+  // Check if a field should be disabled
+  const isFieldDisabledPlatform = (field) => {
+    if (platformTypes.includes("all") && field !== "all") return true;
+    return false;
+  };
+
+  const isFieldDisabledNotification = (field) => {
+    if (permanentlyDisabledFields.includes(field)) return true;
+    if (notificationTypes.includes("all") && field !== "all") return true;
+    return false;
   };
 
   // Handler for input changes
@@ -197,6 +205,7 @@ const App = () => {
                 key={platform}
                 value={platform}
                 style={getStyles(platform, platformTypes, theme)}
+                disabled={isFieldDisabledPlatform(platform)}
               >
                 {platform}
               </MenuItem>
@@ -228,6 +237,7 @@ const App = () => {
                 key={key}
                 value={key}
                 style={getStyles(key, notificationTypes, theme)}
+                disabled={isFieldDisabledNotification(key)}
               >
                 {label}
               </MenuItem>
