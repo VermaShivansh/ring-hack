@@ -18,7 +18,11 @@ import { ReactComponent as RingoverLogo } from "./ringover_logo.svg";
 import { app as firebaseApp, requestForToken } from "./firebase";
 import { useTheme } from "@mui/material/styles";
 
-import { PLATFORMS, NOTIFICATION_TYPES_LABEL } from "./utils/enums";
+import {
+  PLATFORMS,
+  NOTIFICATION_TYPES_LABEL,
+  PLATFORMS_LABEL,
+} from "./utils/enums";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -31,9 +35,14 @@ const MenuProps = {
   },
 };
 
-const platforms = Object.values(PLATFORMS);
 // Disabled fields permanently
 const permanentlyDisabledFields = ["desktop_mac", "desktop_win", "push_ios"];
+const permanentlyDisabledPlatform = [
+  "empower",
+  "web_app",
+  "android_app",
+  "ios_app",
+];
 
 function getStyles(platform, platformTypes, theme) {
   return {
@@ -78,6 +87,7 @@ const App = () => {
 
   // Check if a field should be disabled
   const isFieldDisabledPlatform = (field) => {
+    if (permanentlyDisabledPlatform.includes(field)) return true;
     if (platformTypes.includes("all") && field !== "all") return true;
     return false;
   };
@@ -192,20 +202,20 @@ const App = () => {
             renderValue={(selected) => (
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                 {selected.map((value) => (
-                  <Chip key={value} label={value} />
+                  <Chip key={value} label={PLATFORMS_LABEL[value]} />
                 ))}
               </Box>
             )}
             MenuProps={MenuProps}
           >
-            {platforms.map((platform) => (
+            {Object.entries(PLATFORMS_LABEL).map(([key, label]) => (
               <MenuItem
-                key={platform}
-                value={platform}
-                style={getStyles(platform, platformTypes, theme)}
-                disabled={isFieldDisabledPlatform(platform)}
+                key={key}
+                value={key}
+                style={getStyles(key, platformTypes, theme)}
+                disabled={isFieldDisabledPlatform(key)}
               >
-                {platform}
+                {label}
               </MenuItem>
             ))}
           </Select>

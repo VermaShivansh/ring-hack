@@ -4,6 +4,20 @@ export const PLATFORMS = {
   AICHAT: "aichat",
   ALL: "all",
   EMPOWER: "empower",
+  WEB_APP: "web_app",
+  ADNROID_APP: "android_app",
+  IOS_APP: "ios_app",
+};
+
+export const PLATFORMS_LABEL = {
+  cadence: "Cadence",
+  transcription: "Transcription",
+  aichat: "AI Chat Assistant",
+  all: "All",
+  empower: "Empower (Coming Soon)",
+  web_app: "Ringover Web Application (Coming Soon)",
+  android_app: "Ringover Android Application (Coming Soon)",
+  ios_app: "Ringover iOS Application (Coming Soon)",
 };
 
 export const EVENT_TYPES = {
